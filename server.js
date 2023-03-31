@@ -34,7 +34,7 @@ app.listen(port, () => {
   
       // Create new book document objects
       const user1 = new User({ name:'Karanveer Singh',sid:'300356108'});
-      user1.save((err) => {
+      user1.insertOne((err) => {
         if (err) {
           console.log(err);
         } else {
