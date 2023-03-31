@@ -19,27 +19,7 @@ const connection = mongoose.connection;
 connection.once('open', () => {
   console.log("MongoDB database connection established successfully");
 })
-
 app.get('/',(req,res)=>{
-    
-    console.log(`Server is running on port: ${port}`);
-    const userSchema = new mongoose.Schema({
-        name: String,
-        sid: String
-      });
-      
-      const User = mongoose.model('Quizes', userSchema);
-  
-      // Create new book document objects
-      const user1 = new User({ name:'kayvee ',sid:'300356108'});
-      user1.save((err) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log('user added');
-          mongoose.connection.close();
-        }
-      });
       res.send();
 })
 
