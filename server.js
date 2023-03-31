@@ -21,6 +21,12 @@ connection.once('open', () => {
 })
 
 app.get('/',(req,res)=>{
+    
+      res.send();
+})
+
+app.listen(port, () => {
+    console.log(`Server is running on port: ${port}`);
     const userSchema = new mongoose.Schema({
         name: String,
         sid: String
@@ -38,10 +44,4 @@ app.get('/',(req,res)=>{
           mongoose.connection.close();
         }
       });
-      res.send();
-})
-
-app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
-    
 });
