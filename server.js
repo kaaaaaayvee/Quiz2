@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 7000;
 
 app.use(cors());
 app.use(express.json());
@@ -15,31 +15,35 @@ const uri="mongodb+srv://kaayvee:Canada@1029@cluster0.nidcwj5.mongodb.net/exam?r
 // const uri = "mongodb+srv://testuser:testpw1@nodeexpress-jwt-test.p1g9w.mongodb.net/bookList?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true,  useUnifiedTopology: true   }
 );
+
+const userSchema = new mongoose.Schema({
+  name: String,
+  sid: String
+});
+
+const User = mongoose.model('Quizes', userSchema);
+
+// Create new book document objects
+const user1 = new User({ name:'Karanveer Singh',sid:'300356108'});
+
 const connection = mongoose.connection;
 connection.once('open', () => {
   console.log("MongoDB database connection established successfully");
 })
 app.get('/',(req,res)=>{
+  
+  user1.save((err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('user added');
+      mongoose.connection.close();
+    }
+  });
       res.send();
 })
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
-    const userSchema = new mongoose.Schema({
-        name: String,
-        sid: String
-      });
-      
-      const User = mongoose.model('Quizes', userSchema);
-  
-      // Create new book document objects
-      const user1 = new User({ name:'Karanveer Singh',sid:'300356108'});
-      user1.save((err) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log('user added');
-          mongoose.connection.close();
-        }
-      });
+    
 });
